@@ -11,7 +11,8 @@ App.Express.use(cookieParser());
 
 App.Express.use("/api/*", function (req, res) {
 	var startIndex = 2;
-
+	console.log("req",req);
+	console.log("cookies",req.cookies);
 	var urlParts = req.originalUrl.split("/");
 	var application = urlParts[startIndex];
 	var applicationRoute = "https://uptiverse-" + application + ".herokuapp.com";
@@ -19,6 +20,9 @@ App.Express.use("/api/*", function (req, res) {
 
 	var finalRoute = applicationRoute + route;
 	var token = req.cookies.id_token;
+	console.log("finalRoute",finalRoute);
+	console.log("token",token);
+
 	request(req.method,finalRoute)
  		.send(req.body)
 		.set('Authorization', "JWT " + token)
